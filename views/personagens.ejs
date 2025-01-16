@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seus Personagens</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: url('/images/personagens.webp') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      text-align: center;
+    }
+    .header {
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    .logout-btn {
+      padding: 10px 20px;
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .logout-btn:hover {
+      background-color: #c82333;
+    }
+    .character-list {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 20px auto;
+      max-width: 800px;
+    }
+    .character-card {
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      margin: 15px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      text-align: left;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    }
+    .character-card h3 {
+      margin: 0 0 10px 0;
+      font-size: 24px;
+    }
+    .character-card p {
+      margin: 5px 0;
+      font-size: 16px;
+    }
+    .character-card .enter-btn,
+    .character-card .delete-btn {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .character-card .enter-btn {
+      background-color: #28a745;
+      color: white;
+    }
+    .character-card .enter-btn:hover {
+      background-color: #218838;
+    }
+    .character-card .delete-btn {
+      background-color: #dc3545;
+      color: white;
+    }
+    .character-card .delete-btn:hover {
+      background-color: #c82333;
+    }
+    .button-container {
+      margin: 20px auto;
+    }
+    button {
+      padding: 12px 24px;
+      background-color: #28a745;
+      color: white;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+    button:disabled {
+      background-color: gray;
+      cursor: not-allowed;
+    }
+  </style>
+  <script>
+    // Função para exibir mensagem de confirmação ao excluir personagem
+    function confirmDelete(event, characterName) {
+      if (!confirm(`Tem certeza que deseja excluir o personagem "${characterName}"?`)) {
+        event.preventDefault(); // Cancela o envio do formulário
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="header">
+    <h1>Olá, <%= username %>! Bem-vindo ao Eryndor Reborn - Seus Personagens</h1>
+    <button class="logout-btn" onclick="window.location.href='/auth/logout'">Sair</button>
+  </div>
+  <div class="character-list">
+    <% if (characters.length > 0) { %>
+      <% characters.forEach((char) => { %>
+        <div class="character-card">
+          <h3><%= char.name %></h3>
+          <p><strong>Raça:</strong> <%= char.race %></p>
+          <p><strong>Classe:</strong> <%= char.class %></p>
+          <p><strong>Nível:</strong> <%= char.level || 1 %></p>
+          <div>
+            <!-- Botão Entrar -->
+            <button class="enter-btn" onclick="window.location.href='/jogo?name=<%= char.name %>'">Entrar</button>
+            <!-- Botão Excluir -->
+            <form action="/personagem/delete" method="POST" style="display: inline;" onsubmit="confirmDelete(event, '<%= char.name %>')">
+              <input type="hidden" name="name" value="<%= char.name %>">
+              <button class="delete-btn" type="submit">Excluir</button>
+            </form>
+          </div>
+        </div>
+      <% }) %>
+    <% } else { %>
+      <p>Você ainda não criou nenhum personagem!</p>
+    <% } %>
+  </div>
+  <div class="button-container">
+    <button 
+      onclick="window.location.href='/personagem/create'" 
+      <%= characters.length >= 3 ? 'disabled' : '' %>>
+      Criar Novo Personagem
+    </button>
+    <% if (characters.length >= 3) { %>
+      <p>Você atingiu o limite máximo de 3 personagens.</p>
+    <% } %>
+  </div>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: url('/images/background2.webp') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .register-container {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      max-width: 400px; /* Define largura máxima do contêiner */
+      width: 100%; /* Faz o contêiner se ajustar à largura */
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    .register-container img {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 20px;
+    }
+
+    .register-container input {
+      width: calc(100% - 20px);
+      padding: 10px;
+      margin: 10px auto;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      display: block;
+      box-sizing: border-box;
+    }
+
+    .register-container button {
+      width: 100%;
+      padding: 10px;
+      background-color: #28a745;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .register-container button:hover {
+      background-color: #218838;
+    }
+
+    .register-container a {
+      color: #007BFF;
+      text-decoration: none;
+      font-size: 14px;
+      display: block;
+      margin-top: 15px;
+    }
+
+    .register-container a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="register-container">
+    
+    <h1>Cadastro</h1>
+    <form action="/auth/register" method="POST">
+      <input type="text" name="username" placeholder="Usuário" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="password" name="password" placeholder="Senha" required>
+      <button type="submit">Cadastrar</button>
+    </form>
+    <a href="/auth/login">Já tem uma conta? Entrar</a>
+  </div>
+</body>
+</html>

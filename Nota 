@@ -1,0 +1,12 @@
+/eryndorreborn
+├── index.js
+├── db.js
+├── routes
+│   ├── auth.js
+├── views
+│   ├── login.html
+│   ├── register.html
+├── public
+│   └── styles.css
+├── package.json
+└── .env

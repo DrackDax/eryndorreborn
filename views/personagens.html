@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seus Personagens</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: url('/images/background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      text-align: center;
+    }
+    .character-list {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+    }
+    .character-card {
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 15px;
+      margin: 10px;
+      border-radius: 10px;
+      width: 300px;
+      text-align: left;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+  <h1>Seus Personagens</h1>
+  <div class="character-list">
+    <% if (characters.length > 0) { %>
+      <% characters.forEach((char) => { %>
+        <div class="character-card">
+          <h3><%= char.name %></h3>
+          <p><strong>Raça:</strong> <%= char.race %></p>
+          <p><strong>Classe:</strong> <%= char.class %></p>
+        </div>
+      <% }) %>
+    <% } else { %>
+      <p>Você ainda não criou nenhum personagem!</p>
+    <% } %>
+  </div>
+  <button onclick="window.location.href='/personagem/create'">Criar Novo Personagem</button>
+</body>
+</html>
